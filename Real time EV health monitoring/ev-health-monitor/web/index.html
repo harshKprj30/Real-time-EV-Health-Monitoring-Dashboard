@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EV Health Monitor</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <!-- Chart.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+  <!-- Firebase (compat SDK — works without bundler) -->
+  <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-database-compat.js"></script>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <span class="logo">⚡ EV Health Monitor</span>
+    <span class="live-badge" id="live-badge">● LIVE</span>
+    <span class="ts" id="ts">--:--:--</span>
+  </div>
+</header>
+
+<main>
+  <!-- KPI Cards -->
+  <div class="kpi-grid">
+    <div class="kpi-card">
+      <div class="kpi-label">State of Charge</div>
+      <div class="kpi-value"><span id="soc">--</span><span class="unit">%</span></div>
+      <div class="kpi-bar-wrap"><div class="kpi-bar" id="soc-bar" style="width:0%"></div></div>
+      <div class="kpi-sub" id="range">Range: -- km</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Pack Voltage</div>
+      <div class="kpi-value"><span id="voltage">--</span><span class="unit">V</span></div>
+      <div class="kpi-sub">Nominal: 400 V</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Current Draw</div>
+      <div class="kpi-value"><span id="current">--</span><span class="unit">A</span></div>
+      <div class="kpi-sub" id="power">Power: -- kW</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Motor Temp</div>
+      <div class="kpi-value"><span id="mtemp">--</span><span class="unit">°C</span></div>
+      <div class="kpi-sub" id="mstatus">--</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">WiFi Signal</div>
+      <div class="kpi-value"><span id="rssi">--</span><span class="unit">dBm</span></div>
+      <div class="kpi-sub" id="uptime-val">Uptime: --</div>
+    </div>
+  </div>
+
+  <!-- Voltage Trend Chart -->
+  <section class="card">
+    <div class="card-header">Voltage Trend <span class="card-sub">Last 25 readings</span></div>
+    <div class="chart-wrap"><canvas id="voltChart" role="img" aria-label="Line chart showing pack voltage trend over last 25 readings"></canvas></div>
+  </section>
+
+  <!-- Thermal Sensors -->
+  <section class="card">
+    <div class="card-header">Thermal Sensors</div>
+    <div id="thermal-sensors"></div>
+  </section>
+
+  <!-- Alert Log -->
+  <section class="card">
+    <div class="card-header">System Alerts</div>
+    <div id="alert-log"><p class="no-alerts">No active alerts — all systems normal ✓</p></div>
+  </section>
+</main>
+
+<script src="js/dashboard.js"></script>
+</body>
+</html>

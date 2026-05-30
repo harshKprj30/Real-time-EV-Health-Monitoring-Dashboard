@@ -1,0 +1,8 @@
+{
+  "rules": {
+    "ev": {
+      ".read":  "auth != null",
+      ".write": "auth != null && auth.token.device == true"
+    }
+  }
+}
